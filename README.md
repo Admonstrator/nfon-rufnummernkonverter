@@ -8,7 +8,7 @@ Das Skript `ConvertTo-NFONPhoneNumbers.ps1` formatiert Telefonnummern in einer C
 
 1. Laden Sie das Skript herunter und speichern Sie es in einem beliebigen Verzeichnis auf Ihrem Computer.
 2. Laden Sie die Datei `area_codes.csv` herunter und speichern Sie sie im Verzeichnis `data` im gleichen Verzeichnis wie das Skript.
-3. Erstellen Sie eine Eingabedatei im CSV-Format mit den Spalten `Vorname,Nachname,Telefonnummer`. Die Datei muss ein Semikolon als Trennzeichen verwenden. Das Format der Telefonnummer ist nicht relevant, es wird automatisch in das deutsche Format konvertiert.
+3. Erstellen Sie eine Eingabedatei im CSV-Format mit den Spalten `Name,Telefonnummer`. Die Datei muss ein Semikolon als Trennzeichen verwenden. Das Format der Telefonnummer ist nicht relevant, es wird automatisch in das deutsche Format konvertiert.
 
 ## Verwendung
 
@@ -30,6 +30,7 @@ Das Skript `ConvertTo-NFONPhoneNumbers.ps1` formatiert Telefonnummern in einer C
 1. Das Skript prüft, ob die CSV-Eingabedatei und die CSV-Datei mit den Vorwahlen existieren und ob sie Semikolon als Trennzeichen verwenden.
 2. Das Skript liest die CSV-Eingabedatei und führt eine Schleife über jede Zeile aus, um die Telefonnummer entsprechend dem deutschen Format zu formatieren.
 3. Die formatierten Daten werden in die Ausgabe-CSV-Datei geschrieben, und alle fehlerhaften Zeilen werden in die Fehler-CSV-Datei geschrieben.
+4. Die Ausgabedatei kann anschließend als Kontakt in das NFON Telefonbuch importiert werden.
 
 ## Beispiel
 
@@ -39,7 +40,23 @@ Um das Skript mit den Standardparametern auszuführen, öffnen Sie eine PowerShe
 .\ConvertTo-NFONPhoneNumbers.ps1 -InputFile input.csv
 ```
 
-Dies liest die Datei `input.csv` im gleichen Verzeichnis, formatiert die Telefonnummern entsprechend dem deutschen Format und schreibt die formatierten Daten in die Datei `output.csv`.
+### Eingabedatei
+
+```plain
+Name,Telefonnummer
+David Lightman;0123456789
+Dr. John McKittrick;+49173456789
+Jennifer Katherine Mack;0151/451784
+```
+
+### Ausgabedatei
+
+```plain
+"displayName";"destination";"visibleFor";"vpnTargetNumber";"vpnProvider"
+"David Lightman";"+49 (234) 56789";"";"";""
+"Dr. John McKittrick";"+49 (173) 456789";"";"";""
+"Jennifer Katherine Mack";"+49 (151) 451784";"";"";""
+```
 
 ## Einschränkungen
 
@@ -61,7 +78,8 @@ The `ConvertTo-NFONPhoneNumbers.ps1` script formats phone numbers in a CSV file 
 
 1. download the script and save it in any directory on your computer.
 2. download the file `area_codes.csv` and save it in the directory `data` in the same directory as the script.
-3. create an input file in CSV format with columns `Vorname,Nachname,Telefonnummer`. The file must use a semicolon as a separator. The format of the phone number is not relevant, it will be automatically converted to the German format.
+3. create an input file in CSV format with columns `Name,Telefonnummer`. The file must use a semicolon as a separator. The format of the phone number is not relevant, it will be automatically converted to the German format.
+4. The output file can then be imported into the NFON phonebook as a contact.
 
 ## Usage
 
@@ -91,7 +109,23 @@ To run the script with the default parameters, open a PowerShell console, naviga
 .\ConvertTo-NFONPhoneNumbers.ps1 -InputFile input.csv
 ```
 
-This will read the `input.csv` file in the same directory, format the phone numbers according to the German format, and write the formatted data to `output\output.csv` file.
+### Inputfile
+
+```plain
+Name,Telefonnummer
+David Lightman;0123456789
+Dr. John McKittrick;+49173456789
+Jennifer Katherine Mack;0151/451784
+```
+
+### Outputfile
+
+```plain
+"displayName";"destination";"visibleFor";"vpnTargetNumber";"vpnProvider"
+"David Lightman";"+49 (234) 56789";"";"";""
+"Dr. John McKittrick";"+49 (173) 456789";"";"";""
+"Jennifer Katherine Mack";"+49 (151) 451784";"";"";""
+```
 
 ## Restrictions
 

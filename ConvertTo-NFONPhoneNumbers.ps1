@@ -131,7 +131,7 @@ Write-Progress -Activity "Formatting phone numbers" -Status "Starting" -PercentC
 
 # Loop over the rows in the input data and format the phone number
 $output_data = foreach ($row in $input_data) {
-    if ($row.Vorname.StartsWith("#")) {
+    if ($row.Name.StartsWith("#")) {
         $skip_counter = $skip_counter + 1
         continue
     }
@@ -150,9 +150,11 @@ $output_data = foreach ($row in $input_data) {
         continue
     }
     [PSCustomObject]@{
-        Vorname       = $row.Vorname
-        Nachname      = $row.Nachname
-        Telefonnummer = $formatted_number
+        displayName = $row.Name
+        destination = $formatted_number
+        visibleFor = ""
+        vpnTargetNumber = ""
+        vpnProvider = ""
     }
     $convert_counter = $convert_counter + 1
     $progress = $input_data.IndexOf($row) / $input_data.Count * 100

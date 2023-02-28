@@ -1,7 +1,7 @@
-Vorname;Nachname;Telefonnummer
+Name;Telefonnummer
 # Bitte befüllen Sie diese Datei mit den Daten der entsprechenden Kontakte
 # Die Rufnummern dürfen formatiert sein - sie werden automatisch normalisiert.
 # Beispiel
-# David;Lightman;0123456789
-# John;Dr. McKittrick;+49173456789
-# Jennifer Katherine;Mack;0173/456789
+# David Lightman;0123456789
+# Dr. John McKittrick;+49173456789
+# Jennifer Katherine Mack;0173/456789
