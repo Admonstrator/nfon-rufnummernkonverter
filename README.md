@@ -1,4 +1,6 @@
-# PowerShell-Skript: ConvertTo-NFONPhoneNumbers.ps1
+![Logo](readme/header.png)
+
+# ConvertTo-NFONPhoneNumbers.ps1
 
 Das Skript `ConvertTo-NFONPhoneNumbers.ps1` formatiert Telefonnummern in einer CSV-Datei gemäß dem deutschen Telefonnummernformat. Das Skript liest eine CSV-Eingabedatei mit einem Semikolon als Trennzeichen, formatiert die Telefonnummern entsprechend dem deutschen Format und schreibt die formatierten Daten in eine CSV-Ausgabedatei.
 
@@ -49,10 +51,9 @@ Für die Ausführung des Skripts ist PowerShell Version 5.1 oder höher erforder
 
 Das Skript benötigt außerdem eine CSV-Datei mit den Vorwahlen für Deutschland. Der Standard-Dateipfad ist `data\area_codes.csv`. Die Datei muss ein Semikolon als Trennzeichen enthalten.
 
-
 ----
 
-# PowerShell Script: ConvertTo-NFONPhoneNumbers.ps1
+# ConvertTo-NFONPhoneNumbers.ps1
 
 The `ConvertTo-NFONPhoneNumbers.ps1` script formats phone numbers in a CSV file according to the German phone number format. The script reads an input CSV file with a semicolon delimiter, formats the phone numbers according to the German format, and writes the formatted data to an output CSV file.
 

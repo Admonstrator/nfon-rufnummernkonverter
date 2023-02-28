@@ -1,3 +1,29 @@
+<#
+.SYNOPSIS
+  This script converts phone numbers to the format used by NFON for an easy import into the NFON contact portal.
+.DESCRIPTION
+  This script converts phone numbers to the format used by NFON for an easy import into the NFON contact portal.
+.PARAMETER AreaCodeFile
+  The CSV file containing the area codes.
+.PARAMETER OutputFile
+  The CSV file where the formatted phone numbers will be written to.
+.PARAMETER FailFile
+  The CSV file where the phone numbers that could not be formatted will be written to.
+.PARAMETER InputFile
+  The CSV file containing the phone numbers to be formatted.
+.INPUTS
+  CSV file containing the phone numbers to be formatted.
+.OUTPUTS
+  Statistics about the conversion process and the CSV file containing the formatted phone numbers.
+.NOTES
+  Version:        1.0
+  Author:         Aaron Viehl
+  Creation Date:  2023-02-28
+.EXAMPLE
+  .\ConvertTo-NFONPhoneNumbers.ps1 -InputFile "input.csv"
+#>
+
+#---------------------------------------------------------[Initialisations]--------------------------------------------------------
 param(
     [Parameter(Mandatory = $false, Position = 0)]
     [string]$AreaCodeFile = "data\area_codes.csv",
@@ -7,6 +33,7 @@ param(
 )
 $ErrorActionPreference = "Stop"
 
+#---------------------------------------------------------[Functions]--------------------------------------------------------
 function CheckCSVFile($CSVFile) {
     # Check if the CSV file exists
     if (!(Test-Path $CSVFile)) {
@@ -72,7 +99,7 @@ function DetermineAreaCode([string]$phone_number) {
     return $phone_number
 }
 
-# Main script
+#---------------------------------------------------------[Main]--------------------------------------------------------
 # Cleaning up the output files and creating directories if necessary
 if (Test-Path $OutputFile) {
     Remove-Item $OutputFile
