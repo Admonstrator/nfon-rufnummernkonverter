@@ -1,35 +1,7 @@
 Vorname;Nachname;Telefonnummer
-John;Doe;061123456
-Jane;Doe;061254321
-Max;Mustermann;0695551234
-Sabine;Musterfrau;+49697774321
-Markus;Müller;01734552100
-Sarah;Schmidt;+49160441454
-Hans;Meier;03012345
-Maria;Meyer;0331212345
-Tom;Smith;040987654
-Sara;Jones;0421887654
-John;Doe;061123456
-Jane;Doe;061254321
-Max;Mustermann;0695551234
-Sabine;Musterfrau;+49697774321
-Markus;Müller;01734552100
-Sarah;Schmidt;+49160441454
-Hans;Meier;03012345
-Maria;Meyer;0331212345
-Tom;Smith;040987654
-Sara;Jones;0421887654
-John;Doe;061123456
-Jane;Doe;061254321
-Max;Mustermann;0695551234
-Sabine;Musterfrau;+49697774321
-Markus;Müller;01734552100
-Sarah;Schmidt;+49160441454
-Hans;Meier;03012345
-Maria;Meyer;0331212345
-Tom;Smith;040987654
-Sara;Jones;0421887654
-John;Doe;061123456
-Jane;Doe;061254321
-Max;Mustermann;0695551234
-Sabine;Musterfrau;+49697774321
+# Bitte befüllen Sie diese Datei mit den Daten der entsprechenden Kontakte
+# Die Rufnummern dürfen formatiert sein - sie werden automatisch normalisiert.
+# Beispiel
+# David;Lightman;0123456789
+# John;Dr. McKittrick;+49173456789
+# Jennifer Katherine;Mack;0173/456789
