@@ -68,6 +68,18 @@ Für die Ausführung des Skripts ist PowerShell Version 5.1 oder höher erforder
 
 Das Skript benötigt außerdem eine CSV-Datei mit den Vorwahlen für Deutschland. Der Standard-Dateipfad ist `data\area_codes.csv`. Die Datei muss ein Semikolon als Trennzeichen enthalten.
 
+## AGFEO Exporte importieren
+
+Um Exporte einer AGFEO Telefonanlage zu importieren, müssen diese zuvor mit dem Script `.\PrepareFile-Agfeo.ps1` in das passende Format umgewandelt werden. Hierbei müssen die CSV-Header folgende sein, damit die Konvertierung stattfinden kann.
+
+Diese Funktion befindet sich noch im Beta-Stadium.
+
+```plain
+Kontakt: Name;Kontakt: Vorname;Kontakt: Mittelname;Kontakt: Kurzname;Kontakt: Firma;Kontakt: Titel;Kontakt: Abteilung;Kontakt: Position;Kontakt: Bemerkung;Kontakt: Kundennummer;Kontakt: Kategorie;Kontakt: Geburtstag;Kontakt: Foto;Kontakt: Ordner;[1] Nummer: Festnetz (geschäftlich);[1] Label: Nummer: Festnetz (geschäftlich);[2] Nummer: Festnetz (geschäftlich);[2] Label: Nummer: Festnetz (geschäftlich);[1] Nummer: Mobil (geschäftlich);[1] Label: Nummer: Mobil (geschäftlich);[1] Nummer: Festnetz (privat);[1] Label: Nummer: Festnetz (privat)
+```
+
+
+
 ----
 
 # ConvertTo-NFONPhoneNumbers.ps1
@@ -136,3 +148,14 @@ The script can only handle German phone numbers that start with an area code. It
 The script requires PowerShell version 5.1 or later to run.
 
 The script also requires a CSV file containing the area codes for Germany. The default file path is `data\area_codes.csv`. The file must have semicolon as delimiter.
+
+## Import AGFEO exports
+
+For importing exports of an AGFEO telephone system, these must be converted before with the script `.\PrepareFile-Agfeo.ps1` into the suitable format. For this the CSV headers must be the following, so that the conversion can take place.
+
+This feature is highly beta.
+
+```plain
+Kontakt: Name;Kontakt: Vorname;Kontakt: Mittelname;Kontakt: Kurzname;Kontakt: Firma;Kontakt: Titel;Kontakt: Abteilung;Kontakt: Position;Kontakt: Bemerkung;Kontakt: Kundennummer;Kontakt: Kategorie;Kontakt: Geburtstag;Kontakt: Foto;Kontakt: Ordner;[1] Nummer: Festnetz (geschäftlich);[1] Label: Nummer: Festnetz (geschäftlich);[2] Nummer: Festnetz (geschäftlich);[2] Label: Nummer: Festnetz (geschäftlich);[1] Nummer: Mobil (geschäftlich);[1] Label: Nummer: Mobil (geschäftlich);[1] Nummer: Festnetz (privat);[1] Label: Nummer: Festnetz (privat)
+```
+
