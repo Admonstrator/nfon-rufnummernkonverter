@@ -32,22 +32,23 @@ param(
     [string]$InputFile = "input.csv"
 )
 $ErrorActionPreference = "Stop"
-
+$Version = "1.1"
 #---------------------------------------------------------[Functions]--------------------------------------------------------
 function CheckCSVFile($CSVFile) {
     # Check if the CSV file exists
     if (!(Test-Path $CSVFile)) {
-        Write-Host "The CSV file $CSVFile does not exist. The script cannot continue." -ForegroundColor Red
+        Log -Severity "Error" "The CSV file $CSVFile does not exist. The script cannot continue." -ForegroundColor Red
         break
     }
     else {
         #check if delimiter is semicolon
         $delimiter = (Get-Content $CSVFile | Select-Object -First 1).Split(";").Length
         if ($delimiter -eq 1) {
-            Write-Host "The CSV file $CSVFile does not use semicolon as delimiter. The script cannot continue." -ForegroundColor Red
+            Log -Severity "Error" "The CSV file $CSVFile does not use semicolon as delimiter. The script cannot continue." -ForegroundColor Red
             break
         }
     }
+    Log -Severity "Info" "The CSV file $CSVFile looks good, continuing."
 }
 
 # Define the function that takes a row of data as input
@@ -98,6 +99,51 @@ function DetermineAreaCode([string]$phone_number) {
     # If the phone number is too short to have an area code, return the original phone number
     return $phone_number
 }
+function Log {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet("INFO", "WARN", "ERROR")]
+        [string]$Severity,
+        [Parameter(Mandatory = $true)]
+        [string]$Message
+    )
+
+    $date = Get-Date -Format "yyyy-MM-dd"
+    $time = Get-Date -Format "HH:mm:ss"
+
+    switch ($Severity) {
+        "INFO" {
+            $color = "Green"
+        }
+        "WARN" {
+            $color = "Yellow"
+        }
+        "ERROR" {
+            $color = "Red"
+        }
+    }
+    $severityText = "[$Severity]"
+    $severityText = "[$Severity]".ToUpper()
+    $dateTimeText = "$date $time"
+    $messageText = $Message
+
+    $maxSeverityLength = 7
+    $maxDateTimeLength = 19
+
+    $formattedSeverity = $severityText.PadRight($maxSeverityLength)
+    $formattedDateTime = $dateTimeText.PadRight($maxDateTimeLength)
+    $formattedMessage = $messageText
+
+    $logMessage = "$formattedSeverity $formattedDateTime $formattedMessage"
+    Write-Host $logMessage -ForegroundColor $color
+}
+
+function Header {
+    Log -Severity "Info" "NFON Rufnummernkonverter by Aaron Viehl (Singleton Factory GmbH)"
+    Log -Severity "Info" "Prepares a CSV file containing phone numbers for import into the NFON Cloud PBX"
+    Log -Severity "Info" "Version: $Version"
+    Log -Severity "Info" "======================="
+}
 
 #---------------------------------------------------------[Main]--------------------------------------------------------
 # Cleaning up the output files and creating directories if necessary
@@ -111,6 +157,7 @@ if (!(Test-Path "output")) {
     New-Item -ItemType Directory -Path "output" | Out-Null
 }
 
+Header
 # Check all CSV files
 CheckCSVFile($InputFile)
 CheckCSVFile($AreaCodeFile)
@@ -128,6 +175,8 @@ $skip_counter = 0
 
 # Initialize a progress bar
 Write-Progress -Activity "Formatting phone numbers" -Status "Starting" -PercentComplete 0
+Log -Severity "Info" "Engine is heated up and ready to go!"
+Log -Severity "Info" "Starting to process $number_of_rows rows of data ..."
 
 # Loop over the rows in the input data and format the phone number
 $output_data = foreach ($row in $input_data) {
@@ -166,12 +215,19 @@ Write-Progress -Activity "Formatting phone numbers" -Status "Complete" -PercentC
 
 # Write the output data to the output CSV file
 $output_data | Export-Csv -Path $OutputFile -Delimiter ';' -Encoding UTF8 -NoTypeInformation
+Log -Severity "INFO" "======================="
+Log -Severity "INFO" "Input file: $InputFile"
+Log -Severity "INFO" "Output file: $OutputFile"
+Log -Severity "INFO" "Failed file: $FailFile"
+Log -Severity "INFO" "======================="
+Log -Severity "INFO" "Conversion complete."
+Log -Severity "INFO" "Total number of rows: $number_of_rows"
+Log -Severity "INFO" "Total number of converted rows: $convert_counter"
+Log -Severity "INFO" "Total number of skipped rows: $skip_counter"
+Log -Severity "INFO" "Number of failed rows: $fail_counter"
+Log -Severity "INFO" "======================="
+Log -Severity "INFO" "Thank you for using this script."
 
-Write-Host "Conversion complete."
-Write-Host "---------------------"
-Write-Host "Total number of rows: $number_of_rows"
-Write-Host "Total number of converted rows: $convert_counter"
-Write-Host "Total number of skipped rows: $skip_counter"
-Write-Host "Number of failed rows: $fail_counter"
-Write-Host ""
-Write-Host "Thank you for using this script."
+
+
+
