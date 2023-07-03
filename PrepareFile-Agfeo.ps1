@@ -23,10 +23,11 @@
 param(
     [Parameter(Mandatory = $false, Position = 0)]
     [string]$OutputFile = "output\agfeo-import-ready.csv",
-    [string]$InputFile = "agfeo-import.csv"
+    [string]$InputFile = "agfeo-import.csv",
+    [string]$FailedFile = "output\agfeo-import-failed.csv"
 )
 $ErrorActionPreference = "Stop"
-$Version = "1.0"
+$Version = "1.1"
 
 #---------------------------------------------------------[Functions]--------------------------------------------------------
 function CheckCSVFile($CSVFile) {
@@ -119,6 +120,7 @@ Log -Severity "Info" "Starting to process $number_of_rows rows of data ..."
 
 # Create an array to hold the new data
 $newData = @()
+$failedData = @()
 
 # Loop through each row in the CSV
 foreach ($row in $csv) {
@@ -132,6 +134,7 @@ foreach ($row in $csv) {
     foreach ($phoneColumn in $phoneColumns.Keys) {
         if (![string]::IsNullOrEmpty($row.$phoneColumn)) {
             $obj = New-Object PSObject
+            $failed = New-Object PSObject
             
             # Create a list of the fields
             $fields = @($row.'Kontakt: Firma', $row.'Kontakt: Vorname', $row.'Kontakt: Name')
@@ -140,12 +143,19 @@ foreach ($row in $csv) {
             # Join the fields with a space
             $name = [string]::Join(' ', $fields)
             
-            # Add the properties to the object
-            $obj | Add-Member -MemberType NoteProperty -Name "Name" -Value ($name + $phoneColumns[$phoneColumn])
-            $obj | Add-Member -MemberType NoteProperty -Name "Telefonnummer" -Value $row.$phoneColumn
-            
-            # Add the new object to the array
-            $newData += $obj
+            # If Name is >50 characters, add it to $failedNames
+            if ($name.Length -gt 50) {
+                $failed | Add-Member -MemberType NoteProperty -Name "Name" -Value ($name + $phoneColumns[$phoneColumn])
+                $failed | Add-Member -MemberType NoteProperty -Name "Telefonnummer" -Value $row.$phoneColumn
+                $failedData += $failed
+            }
+            else {
+                # Add the properties to the object
+                $obj | Add-Member -MemberType NoteProperty -Name "Name" -Value ($name + $phoneColumns[$phoneColumn])
+                $obj | Add-Member -MemberType NoteProperty -Name "Telefonnummer" -Value $row.$phoneColumn
+                # Add the new object to the array
+                $newData += $obj
+            }
         }
         # get current row number
         $current_row = $csv.IndexOf($row) + 1
@@ -159,6 +169,7 @@ foreach ($row in $csv) {
 }
 
 # Export the new data to a CSV
+$failedData | Export-Csv -Path $failedFile -NoTypeInformation -Delimiter ';'
 $newData | Export-Csv -Path $outputFile -NoTypeInformation -Delimiter ';'
 
 Log -Severity "INFO" "======================="
@@ -166,6 +177,17 @@ Log -Severity "INFO" "Input file: $InputFile"
 Log -Severity "INFO" "Output file: $OutputFile"
 Log -Severity "INFO" "======================="
 Log -Severity "Info" "Total number of rows: $number_of_rows"
+if ($failedData.Count -eq 0) {
+    Log -Severity "Info" "All rows were processed successfully!"
+}
+else {
+    Log -Severity "Error" "Some rows were not processed successfully!"
+    Log -Severity "Error" "Total number of failed rows: $($failedData.Count)"
+    Log -Severity "Error" "They failed because their name was too long (>50 chars)."
+    Log -Severity "Error" "You can find them in $FailedFile"
+}
+
+Log -Severity "Info" "======================="
 Log -Severity "Info" "You can now run .\ConvertTo-NFONPhoneNumbers.ps1 -InputFile $OutputFile"
 
 # Ask if the user wants to run ConvertTo-NFONPhoneNumbers.ps1 now
