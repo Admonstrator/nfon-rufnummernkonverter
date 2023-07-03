@@ -64,13 +64,13 @@ Das Script kann nur mit deutschen Telefonnummern umgehen, die mit einer Vorwahl 
 
 ## Abhängigkeiten
 
-Für die Ausführung des Skripts ist PowerShell Version 5.1 oder höher erforderlich.
+Für die Ausführung des Skripts ist PowerShell Version 7 oder höher erforderlich.
 
 Das Skript benötigt außerdem eine CSV-Datei mit den Vorwahlen für Deutschland. Der Standard-Dateipfad ist `data\area_codes.csv`. Die Datei muss ein Semikolon als Trennzeichen enthalten.
 
 ## AGFEO Exporte importieren
 
-Um Exporte einer AGFEO Telefonanlage zu importieren, müssen diese zuvor mit dem Script `.\PrepareFile-Agfeo.ps1` in das passende Format umgewandelt werden. Hierbei müssen die CSV-Header folgende sein, damit die Konvertierung stattfinden kann.
+Um Exporte einer AGFEO Telefonanlage zu importieren, müssen diese zuvor mit dem Script `.\PrepareFile-Agfeo.ps1 -InputFile <csv>` in das passende Format umgewandelt werden. Hierbei müssen die CSV-Header folgende sein, damit die Konvertierung stattfinden kann.
 
 Diese Funktion befindet sich noch im Beta-Stadium.
 
@@ -145,13 +145,13 @@ The script can only handle German phone numbers that start with an area code. It
 
 ## Dependencies
 
-The script requires PowerShell version 5.1 or later to run.
+The script requires PowerShell version 7 or later to run.
 
 The script also requires a CSV file containing the area codes for Germany. The default file path is `data\area_codes.csv`. The file must have semicolon as delimiter.
 
 ## Import AGFEO exports
 
-For importing exports of an AGFEO telephone system, these must be converted before with the script `.\PrepareFile-Agfeo.ps1` into the suitable format. For this the CSV headers must be the following, so that the conversion can take place.
+For importing exports of an AGFEO telephone system, these must be converted before with the script `.\PrepareFile-Agfeo.ps1 -InputFile <csv>` into the suitable format. For this the CSV headers must be the following, so that the conversion can take place.
 
 This feature is highly beta.
 
