@@ -1,5 +1,7 @@
 ![Logo](readme/header.png)
 
+_Dieses Repository wird nicht mehr aktiv gepflegt, da ich keine NFON-Telefonanlage mehr betreue._
+
 # ConvertTo-NFONPhoneNumbers.ps1
 
 Das Skript `ConvertTo-NFONPhoneNumbers.ps1` formatiert Telefonnummern in einer CSV-Datei gemäß dem deutschen Telefonnummernformat. Das Skript liest eine CSV-Eingabedatei mit einem Semikolon als Trennzeichen, formatiert die Telefonnummern entsprechend dem deutschen Format und schreibt die formatierten Daten in eine CSV-Ausgabedatei.
@@ -78,9 +80,9 @@ Diese Funktion befindet sich noch im Beta-Stadium.
 Kontakt: Name;Kontakt: Vorname;Kontakt: Mittelname;Kontakt: Kurzname;Kontakt: Firma;Kontakt: Titel;Kontakt: Abteilung;Kontakt: Position;Kontakt: Bemerkung;Kontakt: Kundennummer;Kontakt: Kategorie;Kontakt: Geburtstag;Kontakt: Foto;Kontakt: Ordner;[1] Nummer: Festnetz (geschäftlich);[1] Label: Nummer: Festnetz (geschäftlich);[2] Nummer: Festnetz (geschäftlich);[2] Label: Nummer: Festnetz (geschäftlich);[1] Nummer: Mobil (geschäftlich);[1] Label: Nummer: Mobil (geschäftlich);[1] Nummer: Festnetz (privat);[1] Label: Nummer: Festnetz (privat)
 ```
 
-
-
 ----
+
+_This repository is no longer actively maintained, as I no longer support the NFON telephone system._
 
 # ConvertTo-NFONPhoneNumbers.ps1
 
