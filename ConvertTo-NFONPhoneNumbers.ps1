@@ -146,6 +146,13 @@ function Header {
 }
 
 #---------------------------------------------------------[Main]--------------------------------------------------------
+# Check if the PowerShell version is at least 7
+if ($PSVersionTable.PSVersion.Major -lt 7) {
+    Log -Severity "Error" "This script requires PowerShell 7 or higher. Please upgrade your PowerShell version and try again." -ForegroundColor Red
+    Log -Severity "Error" "You can download PowerShell 7 from https://aka.ms/PSWindows"
+    break
+}
+    
 # Cleaning up the output files and creating directories if necessary
 if (Test-Path $OutputFile) {
     Remove-Item $OutputFile

@@ -94,6 +94,13 @@ function Header {
 }
 
 #---------------------------------------------------------[Main]--------------------------------------------------------
+# Check if the PowerShell version is at least 7
+if ($PSVersionTable.PSVersion.Major -lt 7) {
+    Log -Severity "Error" "This script requires PowerShell 7 or higher. Please upgrade your PowerShell version and try again." -ForegroundColor Red
+    Log -Severity "Error" "You can download PowerShell 7 from https://aka.ms/PSWindows"
+    break
+}
+    
 # Prepare the output file
 if (Test-Path $OutputFile) {
     Remove-Item $OutputFile
@@ -103,6 +110,7 @@ if (!(Test-Path "output")) {
 }
 
 Header
+
 
 # Import the CSV file
 CheckCSVFile $InputFile
